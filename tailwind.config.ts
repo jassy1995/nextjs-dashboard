@@ -13,6 +13,12 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        customBg: '#F2F0F1',
+      },
+      boxShadow: {
+        'shadow-ss': '0 3px 5px 3px rgba(0, 0, 0, 0.03)',
+      }
     },
   },
   plugins: [],

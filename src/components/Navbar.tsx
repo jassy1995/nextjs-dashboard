@@ -1,39 +1,31 @@
 import Link from 'next/link'
 import React from 'react'
+import Badge from './global/Badge'
+import SearchInput from './global/SearchInput'
 
 export default function Navbar() {
+    const handleSearch = (value: string) => {
+        console.log('Search:', value);
+    };
+
     return (
-        <nav className='flex items-center justify-between w-full p-4 border-b border-gray-600 px-24'>
-            <ul className="flex items-center space-x-3">
-                <li className='hover:underline hover:underline-offset-8 hover:cursor-pointer'>
-                    <Link href='/'>
-                        Home
+        <nav className='flex items-center justify-between w-full p-4 px-24 bg-white shadow-sm'>
+            <h1 className='text-2xl font-bold text-gray-800'>DigitMart</h1>
+            <SearchInput onSearch={handleSearch} debounceDelay={600} />
+            <ul className="flex items-center space-x-6">
+                <li>
+                    <Link className="btn btn-ghost rounded-btn" href='/cart'>
+                        <Badge count={12} />
                     </Link>
                 </li>
-                <li className='hover:underline hover:underline-offset-8 hover:cursor-pointer'>
-                    <Link href='/chat'>
-                        Chat
-                    </Link>
-                </li>
-                <li className='hover:underline hover:underline-offset-8 hover:cursor-pointer'>
-                    <Link href='/pricing'>
-                        Pricing
-                    </Link>
-                </li>
-            </ul>
-            <ul className="flex items-center space-x-3">
-                <li className='hover:underline hover:underline-offset-8 hover:cursor-pointer'>
-                    <Link href='/login'>
-                        Login
-                    </Link>
-                </li>
-                <li className='hover:underline hover:underline-offset-8 hover:cursor-pointer'>
-                    <Link href='/signup'>
-                        Sign up
-                    </Link>
+                <li>
+                    <button className="btn btn-ghost rounded-btn font-medium hover:cursor-pointer hover:bg-slate-100 rounded-md px-3 py-2" type="button">
+                        Sign in
+                    </button>
                 </li>
             </ul>
         </nav>
 
     )
 }
+
