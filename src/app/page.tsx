@@ -1,13 +1,13 @@
 'use client';
 import Navbar from "@/components/Navbar";
-import Product from "@/components/Product";
+import Overview from "@/components/Overview";
 
 export default function Home() {
   return (
     <main className="flex flex-col">
       <Navbar />
-      <div className="px-24 mt-10">
-        <Product />
+      <div className="mt-10">
+        <Overview />
       </div>
     </main>
   );

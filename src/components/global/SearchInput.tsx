@@ -6,9 +6,12 @@ type SearchInputProps = {
     placeholder?: string;
     onSearch: (value: string) => void;
     debounceDelay?: number;
+    className?: string;
+
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({ placeholder = 'Search...', onSearch, debounceDelay = 500 }) => {
+const SearchInput: React.FC<SearchInputProps> = (props) => {
+    const { placeholder = 'Search...', onSearch, debounceDelay = 500, className } = props;
     const [value, setValue] = useState('');
     const debouncedValue = useDebounce(value, debounceDelay);
 
@@ -23,7 +26,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ placeholder = 'Search...', on
     };
 
     return (
-        <div className="w-full sm:w-1/3 flex items-center border rounded-full px-3 py-2 shadow-ss">
+        <div className={`w-full md:w-1/3 flex items-center border px-3 py-2 shadow-ss ${className}`}>
             <FaSearch className="text-gray-400 mr-2" />
             <input
                 type="text"

@@ -18,7 +18,17 @@ const config: Config = {
       },
       boxShadow: {
         'shadow-ss': '0 3px 5px 3px rgba(0, 0, 0, 0.03)',
-      }
+      },
+      screens: {
+        xxxs: "200px",
+        xxs: "337px",
+        xs: "480px",
+        ss: "620px",
+        sm: "768px",
+        md: "1060px",
+        lg: "1200px",
+        xl: "1700px",
+      },
     },
   },
   plugins: [],
