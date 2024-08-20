@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from './global/Button'
 import Image from 'next/image';
-import styles, { layout } from '@/util/style';
+import { layout } from '@/util/style';
 
 export default function Hero() {
     return (
@@ -12,22 +12,42 @@ export default function Hero() {
                     Whether you are looking for casual wear, office attire, or something special for an event, we have everything you need to elevate your wardrobe
                 </p>
                 <Button onClick={() => { }} className='xs:w-52 w-full'>Shop Now</Button>
-                <div className='flex justify-between items-center'>
-                    <div className='flex flex-col space-y-1'>
+                <div className='hidden sm:flex justify-between'>
+                    <div className='flex flex-col sm:space-y-1'>
                         <h1 className='text-2xl font-bold'>200+</h1>
-                        <p className='text-slate-600'>International brands</p>
+                        <p className='text-slate-600'>
+                            International Brands
+                        </p>
                     </div>
-                    <div className='flex flex-col space-y-1'>
+                    <div className='flex flex-col sm:space-y-1'>
                         <h1 className='text-2xl font-bold'>2,000+</h1>
                         <p className='text-slate-600'>High-Quality Product</p>
                     </div>
-                    <div className='flex flex-col space-y-1'>
+                    <div className='flex flex-col sm:space-y-1 justify-center self-center'>
                         <h1 className='text-2xl font-bold'>3,0000+</h1>
-                        <p className='text-slate-600'>Happy Customer</p>
+                        <p className='text-slate-600'> Happy Customer</p>
+                    </div>
+                </div>
+                <div className='flex flex-col justify-between space-y-5 sm:space-y-0 sm:flex-row w-full sm:hidden'>
+                    <div className='flex justify-between'>
+                        <div className='flex flex-col sm:space-y-1'>
+                            <h1 className='text-2xl font-bold'>200+</h1>
+                            <p className='text-slate-600'>
+                                Brands
+                            </p>
+                        </div>
+                        <div className='flex flex-col sm:space-y-1'>
+                            <h1 className='text-2xl font-bold'>2,000+</h1>
+                            <p className='text-slate-600'>Product</p>
+                        </div>
+                    </div>
+                    <div className='flex flex-col sm:space-y-1 justify-center items-center'>
+                        <h1 className='text-2xl font-bold'>3,0000+</h1>
+                        <p className='text-slate-600'>Customer</p>
                     </div>
                 </div>
             </div>
-            <div className='w-full md:w-1/2 overflow-hidden h-[350px] md:h-[666px]'>
+            <div className='w-full md:w-1/2 overflow-hidden h-[350px] sm:h-[666px]'>
                 <Image src="/hero9.png" alt="not exxist" width={1000} height={1000} priority className="object-cover w-full image-full" />
             </div>
         </div >

@@ -14,7 +14,7 @@ export default function Navbar() {
     };
 
     return (
-        <nav className={`w-full bg-white shadow-sm py-4 ${styles.paddingX}}`}>
+        <nav className={`w-full bg-white sticky top-0 shadow-sm py-4 z-50 ${styles.paddingX}}`}>
             <div className='hidden sm:flex justify-between items-center'>
                 <h1 className='text-2xl font-bold text-gray-800'>Buy.hub</h1>
                 <SearchInput onSearch={handleSearch} debounceDelay={600} className='rounded-full' />
@@ -33,7 +33,7 @@ export default function Navbar() {
                     </li>
                 </ul>
             </div>
-            <div className='flex flex-col space-y-2 sm:hidden'>
+            <div className='flex flex-col space-y-2 sm:hidden z-50'>
                 <div className='flex justify-between items-center border-b border-slate-100 pb-3 mb-2'>
                     <div className='flex items-center space-x-2'>
                         <RiMenuFill className='w-7 h-7' />

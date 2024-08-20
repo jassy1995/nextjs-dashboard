@@ -16,7 +16,7 @@ const styles = {
 };
 
 export const layout = {
-    hero: `flex md:flex-row flex-col ${styles.paddingX}`,
+    hero: `flex md:flex-row flex-col space-y-10 md:space-y-0 ${styles.paddingX}`,
     sectionReverse: `flex md:flex-row flex-col-reverse ${styles.paddingY}`,
 
     sectionImgReverse: `flex-1 flex ${styles.flexCenter} md:mr-10 mr-0 md:mt-0 mt-10 relative`,

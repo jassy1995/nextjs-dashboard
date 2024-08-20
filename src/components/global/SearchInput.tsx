@@ -26,7 +26,7 @@ const SearchInput: React.FC<SearchInputProps> = (props) => {
     };
 
     return (
-        <div className={`w-full md:w-1/3 flex items-center border px-3 py-2 shadow-ss ${className}`}>
+        <div className={`w-full  sm:w-1/2 lg:w-1/3 flex items-center border px-3 py-2 shadow-ss ${className}`}>
             <FaSearch className="text-gray-400 mr-2" />
             <input
                 type="text"
