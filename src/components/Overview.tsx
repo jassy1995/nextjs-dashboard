@@ -2,7 +2,7 @@ import React from 'react'
 import Hero from './Hero'
 import Brand from './Brand'
 import Catalogue from './Catalogue'
-// import Catalogue from './Catalogue';
+import Testimonial from './Testimonial'
 
 export default function Overview() {
     return (
@@ -10,6 +10,7 @@ export default function Overview() {
             <Hero />
             <Brand />
             <Catalogue />
+            <Testimonial />
         </div>
     )
 }

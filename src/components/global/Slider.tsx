@@ -31,23 +31,23 @@ const Slider: FC<SliderProps> = ({ items }) => {
             breakpoints: {
                 0: {
                     slidesPerView: 1,
-                    spaceBetween: 20,
+                    spaceBetween: 30,
                 },
                 480: {
                     slidesPerView: 2,
-                    spaceBetween: 20,
+                    spaceBetween: 30,
                 },
                 620: {
                     slidesPerView: 2.5,
-                    spaceBetween: 20,
+                    spaceBetween: 30,
                 },
                 1060: {
                     slidesPerView: 3,
-                    spaceBetween: 20,
+                    spaceBetween: 30,
                 },
                 1200: {
                     slidesPerView: 4,
-                    spaceBetween: 20,
+                    spaceBetween: 30,
                 },
             }
         };
@@ -73,7 +73,6 @@ const Slider: FC<SliderProps> = ({ items }) => {
             </div>
 
         </div>
-
     )
 }
 
