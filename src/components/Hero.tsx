@@ -48,7 +48,7 @@ export default function Hero() {
                 </div>
             </div>
             <div className='w-full md:w-1/2 overflow-hidden h-[350px] sm:h-[666px]'>
-                <Image src="/hero9.png" alt="not exxist" width={1000} height={1000} priority className="object-cover w-full image-full" />
+                <Image src="/hero.png" alt="not exxist" width={1000} height={1000} priority className="object-cover w-full image-full" />
             </div>
         </div >
     )

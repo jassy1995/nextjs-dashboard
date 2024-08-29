@@ -9,7 +9,7 @@ export default function ItemGallery() {
                     <div
                         className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-white shadow-lg md:h-80">
                         <Image
-                            src="/gallery/casual3.png"
+                            src="/gallery/casual.png"
                             alt="Photo by Minh Pham"
                             layout="fill"
                             objectFit="cover"
@@ -21,8 +21,9 @@ export default function ItemGallery() {
                     </div>
                     <div
                         className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-white shadow-lg md:col-span-2 md:h-80">
+
                         <Image
-                            src="/gallery/formal2.png"
+                            src="/gallery/formal.png"
                             alt="Photo by Minh Pham"
                             layout="fill"
                             objectFit="cover"
@@ -30,14 +31,13 @@ export default function ItemGallery() {
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             className="transition duration-200 group-hover:scale-110"
                         />
-
                         <span className="relative ml-4 mb-3 inline-block text-sm text-black md:ml-5 md:text-lg">Formal</span>
                     </div>
                     <div
                         className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-white shadow-lg md:col-span-2 md:h-80">
 
                         <Image
-                            src="/gallery/party5.png"
+                            src="/gallery/party.png"
                             alt="Photo by Minh Pham"
                             layout="fill"
                             objectFit="cover"
@@ -50,7 +50,7 @@ export default function ItemGallery() {
                     <div
                         className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-white shadow-lg md:h-80">
                         <Image
-                            src="/gallery/gym2.jpg"
+                            src="/gallery/gym.png"
                             alt="Photo by Minh Pham"
                             layout="fill"
                             objectFit="cover"
@@ -58,7 +58,6 @@ export default function ItemGallery() {
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             className="transition duration-200 group-hover:scale-110"
                         />
-
                         <span className="relative ml-4 mb-3 inline-block text-sm text-black md:ml-5 md:text-lg">Gym</span>
                     </div>
                 </div>

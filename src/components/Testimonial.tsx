@@ -55,10 +55,10 @@ const Testimonial: FC = () => {
         swiperElRef.current.initialize();
     }, []);
     return (
-        <div className={`w-full bg-white flex flex-col space-y-4 pb-4 ${styles.paddingX}`}>
+        <div className={`w-full bg-white flex flex-col space-y-4 pb-[90px] ${styles.paddingX}`}>
             <div className={`w-full flex justify-between`}>
-                <h1 className='uppercase text-2xl font-bold'>Our happy customers</h1>
-                <div className='flex items-center space-x-3'>
+                <h1 className='uppercase text-lg sm:text-2xl font-bold'>Our happy customers</h1>
+                <div className='flex items-center sm:space-x-3'>
                     <button ref={swiperPrevBtnRef} className='disabled:opacity-50 w-8 h-8 inline-flex justify-center items-center cursor-pointer'>
                         <HiArrowLongLeft className='text-black font-bold text-lg sm:text-2xl' />
                     </button>
