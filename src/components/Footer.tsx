@@ -25,12 +25,12 @@ export default function Footer() {
         <div className='w-full sm:w-1/2'>
           <p className='uppercase sm:max-w-sm text-white text-lg sm:text-2xl font-bold'>stay upto date about our latest offers</p>
         </div>
-        <form onSubmit={handleSubmit} className='w-full sm:w-1/3 flex flex-col justify-center items-center space-y-2'>
+        <form onSubmit={handleSubmit} className='w-full ss:w-2/5 md:w-1/3 flex flex-col justify-center items-center space-y-2'>
           <EmailInput type='email' name='email' className='rounded-full bg-white' placeholder='Enter your email' value={email} onChange={handleChange} />
           <button type='submit' className="bg-white text-black py-2 px-4 rounded-full w-full hover:bg-gray-100">Subscribe to newsletter</button>
         </form>
       </div>
-      <div className='mt-6 flex flex-col sm:flex-row justify-between space-y-6 sm:space-y-0 w-full'>
+      <div className='mt-6 flex flex-col md:flex-row justify-between space-y-6 md:space-y-0 w-full'>
         <div className='flex flex-col space-y-4 sm:w-1/2'>
           <h1 className='text-lg sm:text-2xl font-bold text-gray-800'>Buy.hub</h1>
           <p className='text-sm text-gray-500 sm:max-w-xs'>we have cloth that suits your style and which you are proud to wear. From women to men</p>
