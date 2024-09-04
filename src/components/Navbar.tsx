@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import React from 'react'
 import Badge from './global/Badge'
@@ -16,7 +17,9 @@ export default function Navbar() {
     return (
         <nav className={`w-full bg-white sticky top-0 shadow-sm py-4 z-50 ${styles.paddingX}}`}>
             <div className='hidden sm:flex justify-between items-center'>
-                <h1 className='text-2xl font-bold text-gray-800'>Buy.hub</h1>
+                <h1 className='text-2xl font-bold text-gray-800'>
+                    <Link href='/'>Buy.hub</Link>
+                </h1>
                 <SearchInput onSearch={handleSearch} debounceDelay={600} className='rounded-full' />
                 <ul className="flex items-center space-x-6">
                     <li>
@@ -37,7 +40,9 @@ export default function Navbar() {
                 <div className='flex justify-between items-center border-b border-slate-100 pb-3 mb-2'>
                     <div className='flex items-center space-x-2'>
                         <RiMenuFill className='w-7 h-7' />
-                        <h1 className='text-2xl font-bold text-gray-800'>Buy.hub</h1>
+                        <h1 className='text-2xl font-bold text-gray-800'>
+                            <Link href='/'>Buy.hub</Link>
+                        </h1>
                     </div>
                     <div className="flex items-center space-x-4">
                         <IoPersonOutline className='w-7 h-7' />

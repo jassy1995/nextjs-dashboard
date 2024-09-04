@@ -2,6 +2,7 @@ import { useRef, useEffect, FC } from 'react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import { register } from 'swiper/element/bundle';
 import ItemCard from './ItemCard';
+import Link from 'next/link';
 
 register();
 
@@ -61,7 +62,9 @@ const Slider: FC<SliderProps> = ({ items }) => {
                     {
                         items.map((item: any, i: number) => (
                             <swiper-slide key={i}>
-                                <ItemCard item={item} />
+                                <Link href={`/product/${item.id}`}>
+                                    <ItemCard item={item} />
+                                </Link>
                             </swiper-slide>
                         ))
                     }

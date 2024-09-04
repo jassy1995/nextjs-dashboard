@@ -3,7 +3,6 @@ import { Pagination, Autoplay, Navigation } from 'swiper/modules';
 import { register } from 'swiper/element/bundle';
 import TestimonialCard from './global/TestimonialCard';
 import reviews from '@/lib/review';
-import styles from '@/util/style';
 import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
 
 register();
@@ -55,7 +54,7 @@ const Testimonial: FC = () => {
         swiperElRef.current.initialize();
     }, []);
     return (
-        <div className={`w-full bg-white flex flex-col space-y-4 pb-[90px] ${styles.paddingX}`}>
+        <div className={`w-full bg-white flex flex-col space-y-4 pb-[90px]`}>
             <div className={`w-full flex justify-between`}>
                 <h1 className='uppercase text-lg sm:text-2xl font-bold'>Our happy customers</h1>
                 <div className='flex items-center sm:space-x-3'>

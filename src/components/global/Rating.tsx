@@ -15,14 +15,16 @@ const Rating: FC<RatingProps> = ({ rating }) => {
     const emptyStars = totalStars - filledStars - (hasHalfStar ? 1 : 0); // Empty stars
 
     return (
-        <div className="flex">
+        <div className="flex space-x-2">
             {[...Array(Math.max(filledStars, 0))].map((_, index) => (
-                <FaStar key={index} className="text-yellow-500" />
+                <FaStar key={index} className="text-yellow-500 " />
             ))}
+
             {hasHalfStar && <FaStarHalfAlt className="text-yellow-500" />}
             {[...Array(Math.max(emptyStars, 0))].map((_, index) => (
                 <FaRegStar key={index} className="text-yellow-500" />
             ))}
+            <span className='text-sm ml-1'>({rating}/5)</span>
         </div>
     );
 };

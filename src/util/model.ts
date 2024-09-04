@@ -5,6 +5,7 @@ export type TInvoice = {
     date: string;
 }
 export type TProduct = {
+    id: number;
     name: string;
     price: number;
     rating: number;

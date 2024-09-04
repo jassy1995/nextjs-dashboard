@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useState } from 'react';
 import useDebounce from '@/hooks/useDebounce';
 import { FaSearch } from 'react-icons/fa';

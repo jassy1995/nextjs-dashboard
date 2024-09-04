@@ -1,17 +1,25 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/hooks/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/lib/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/util/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
       colors: {
-        'slate-150': '#F2F0F1',
-        'slate-1000': '#000000',
-        'slate-550': '#B8B8B8',
+        customBg: '#F2F0F1',
       },
       boxShadow: {
-        'ss': '0 3px 5px 3px rgba(0, 0, 0, 0.03)',
+        'shadow-ss': '0 3px 5px 3px rgba(0, 0, 0, 0.03)',
       },
       screens: {
         xxxs: "200px",

@@ -8,7 +8,7 @@ import ItemGallery from './global/ItemGallery';
 const Catalogue: FC = () => {
 
     return (
-        <div className={`w-full bg-white py-12 z-0 ${styles.paddingX}`}>
+        <div className={`w-full bg-white py-12 z-0`}>
             <div className='flex flex-col space-y-12'>
                 <div className="flex flex-col space-y-6">
                     <h1 className='text-lg sm:text-2xl font-bold uppercase text-center'>new arrivals</h1>
