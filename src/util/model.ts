@@ -17,3 +17,11 @@ export type TReview = {
     description: string;
     date: string;
 }
+export type TColor = {
+    name: string;
+    value: string;
+}
+export type TSize = {
+    name: string;
+    bg: string;
+}

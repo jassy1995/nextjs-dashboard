@@ -8,11 +8,13 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --thumb-size: 16px;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
 }
 
 * {
@@ -48,26 +50,144 @@
     height: 30px;
   }
 }
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-} */
 
-/* body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
+.track-styles {
+  appearance: none;
+  background: transparent;
+  border: transparent;
+}
 
-/* @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-} */
+.thumb-styles {
+  appearance: none;
+  pointer-events: all;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border-radius: 0px;
+  border: 0 none;
+  cursor: grab;
+  background-color: red;
+}
+
+.thumb-styles:active {
+  cursor: grabbing;
+}
+
+.price-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 20px calc(var(--thumb-size) / 2);
+}
+
+.price-input-wrapper {
+  width: calc(100% + var(--thumb-size));
+  margin: 0 calc(var(--thumb-size) / -2);
+  position: absolute;
+  height: var(--thumb-size);
+   margin-left: 10px;
+  margin-right: 10px; 
+}
+
+.price-control-wrapper {
+  width: 100%;
+  position: absolute;
+  height: var(--thumb-size);
+}
+
+.price-input {
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+  appearance: none;
+  height: 100%;
+  opacity: 0;
+  z-index: 3;
+  padding: 0;
+}
+
+.price-input::-ms-track {
+  /* Use the track-styles class */
+  appearance: none;
+  background: transparent;
+  border: transparent;
+}
+
+.price-input::-moz-range-track {
+  /* Use the track-styles class */
+  appearance: none;
+  background: transparent;
+  border: transparent;
+}
+
+.price-input:focus::-webkit-slider-runnable-track {
+  /* Use the track-styles class */
+  appearance: none;
+  background: transparent;
+  border: transparent;
+}
+
+.price-input::-ms-thumb {
+  /* Use the thumb-styles class */
+  appearance: none;
+  pointer-events: all;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border-radius: 0px;
+  border: 0 none;
+  cursor: grab;
+  background-color: red;
+}
+
+.price-input::-moz-range-thumb {
+  /* Use the thumb-styles class */
+  appearance: none;
+  pointer-events: all;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border-radius: 0px;
+  border: 0 none;
+  cursor: grab;
+  background-color: red;
+}
+
+.price-input::-webkit-slider-thumb {
+  /* Use the thumb-styles class */
+  appearance: none;
+  pointer-events: all;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border-radius: 0px;
+  border: 0 none;
+  cursor: grab;
+  background-color: red;
+}
+
+.price-rail {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 6px;
+  border-radius: 3px;
+  background: lightgrey;
+}
+
+.price-inner-rail {
+  position: absolute;
+  height: 100%;
+  background: black;
+  opacity: 0.8;
+}
+
+.price-control {
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border-radius: 50%;
+  position: absolute;
+  background: black;
+  top: 50%;
+  margin-left: calc(var(--thumb-size) / -2);
+  transform: translate3d(0, -50%, 0);
+  z-index: 2;
+}
+

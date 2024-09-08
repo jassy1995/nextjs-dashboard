@@ -6,28 +6,31 @@ import styles from '@/util/style';
 import Image from 'next/image';
 import Rating from '@/components/global/Rating';
 import { formatNaira } from '@/util/global';
-import ColorCircle from '@/components/global/ColorCircle';
+import ColorButton from '@/components/global/buttons/ColorButton';
 import { IoIosCheckmark } from "react-icons/io";
-import SmallBtn from '@/components/global/SmallBtn';
+import ActionButton from '@/components/global/buttons/ActionButton';
 import userReviews from '@/lib/review';
 import TestimonialCard from '@/components/global/TestimonialCard';
 import ItemCard from '@/components/global/ItemCard';
 import Footer from '@/components/Footer';
 import useWindowSize from '@/hooks/useWindowSize';
 import Link from 'next/link';
+import { colors, sizes } from '@/lib/product-data';
 
 export default function ProductDetail() {
     const [reviews, setReviews] = useState(userReviews.slice(0, 6));
     const [isAll, setIsAll] = useState(false);
-
-    const mobile = 400;
+    const [selectedColor, setSelectedColor] = useState(colors[0].name);
+    const [selectedSize, setSelectedSize] = useState('large');
 
     const { width } = useWindowSize();
-
     const { id }: any = useParams();
-    const product: any = products.find((p: any) => p.id === +id);
 
+    const mobile = 400;
+    const product: any = products.find((p: any) => p.id === +id);
     const favouriteProducts = products.slice(0,4);
+    const firstThreeColor = colors.slice(0,3);
+    const standardSize = sizes.slice(2,6);
 
     const showAll = () => {
         if (!isAll) {
@@ -39,6 +42,14 @@ export default function ProductDetail() {
             setIsAll(false);
         }
     };
+
+    const handleColorSelect = (color:string) => {
+        setSelectedColor(color);
+      };
+    
+      const handleSizeSelect = (size:string) => {
+        setSelectedSize(size);
+      };
 
     return (
         <div className={`flex flex-col space-y-10 pt-10 bg-white ${styles.paddingX}`}>
@@ -62,29 +73,25 @@ export default function ProductDetail() {
                     <div className='flex flex-col space-y-2'>
                         <div className='text-sm text-gray-500'>Select color</div>
                         <div className='flex space-x-4 items-center'>
-                            <ColorCircle className='bg-[#4F4631]'>
-                                <IoIosCheckmark className='text-white w-6 h-6 rounded-full' />
-                            </ColorCircle>
-                            <ColorCircle className='bg-[#314F4A] w-6 h-6 rounded-full'></ColorCircle>
-                            <ColorCircle className='bg-[#31344F] w-6 h-6 rounded-full'></ColorCircle>
+                            {firstThreeColor.map((color,i) => (
+                            <ColorButton key={i} handler={() => handleColorSelect(color.name)} className={`w-6 h-6 rounded-full ${color.value} ${color.name ==='white'? 'border border-slate-200' : ''}`}>
+                                {color.name=== selectedColor ? 
+                                    <IoIosCheckmark className={`w-6 h-6 rounded-full ${selectedColor==='white' ? 'text-black' : 'text-white'}`}/>
+                                    : null
+                                }
+                            </ColorButton>
+                            ))}
                         </div>
                     </div>
                     <hr />
                     <div className='flex flex-col space-y-2'>
                         <div className='text-sm text-gray-500'>Choose size</div>
                         <div className='flex space-x-4 items-center'>
-                            <SmallBtn className='bg-gray-200 text-gray-500 w-20 h-6 rounded-full text-sm'>
-                                {width < mobile ? 'sm' : 'small'}
-                            </SmallBtn>
-                            <SmallBtn className='bg-gray-200 text-gray-500 w-20 h-6 rounded-full text-sm'>
-                                {width < mobile ? 'md' : 'medium'}
-                            </SmallBtn>
-                            <SmallBtn className='bg-black text-white w-20 h-6 rounded-full text-sm'>
-                                {width < mobile ? 'lg' : 'large'}
-                            </SmallBtn>
-                            <SmallBtn className='bg-gray-200 text-gray-500 w-20 h-6 rounded-full text-sm'>
-                                {width < mobile ? 'xl' : 'x-large'}
-                            </SmallBtn>
+                            {standardSize.map((size,i) => (
+                                <ActionButton key={i} handler={() => handleSizeSelect(size.fullName)} className={`w-20 h-6 rounded-full text-sm ${size.fullName === selectedSize ? 'bg-black text-white' : 'bg-gray-100 text-gray-500 '}`}>
+                                    {width < mobile ? size.shortName : size.fullName}
+                                </ActionButton>
+                            ))}
                         </div>
                     </div>
                     <hr />
@@ -94,7 +101,7 @@ export default function ProductDetail() {
                             <span className='text-sm text-gray-700'>1</span>
                             <button className='border-none text-black'><FaPlus /></button>
                         </div> */}
-                        <SmallBtn className='bg-black text-white w-full sm:w-[370px] h-9 rounded-full'>Add to Cart</SmallBtn>
+                        <ActionButton className='bg-black text-white w-full sm:w-[370px] h-9 rounded-full'>Add to Cart</ActionButton>
                     </div>
                 </div>
             </div>
@@ -103,7 +110,7 @@ export default function ProductDetail() {
                 <div className='flex items-center justify-between'>
                     <h1>All Reviews ({userReviews.length})</h1>
                     <div className='flex items-center space-x-3'>
-                        <SmallBtn className='bg-black text-white w-32 h-7 rounded-full text-sm'>Write a review</SmallBtn>
+                        <ActionButton className='bg-black text-white w-32 h-7 rounded-full text-sm'>Write a review</ActionButton>
                     </div>
                 </div>
                 <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
@@ -116,9 +123,9 @@ export default function ProductDetail() {
                     }
                 </div>
                 <div className='text-center'>
-                    <SmallBtn handler={showAll} className='bg-gray-200 font-medium text-black w-32 h-7 rounded-full text-sm'>
+                    <ActionButton handler={showAll} className='bg-gray-200 font-medium text-black w-32 h-7 rounded-full text-sm'>
                         {isAll ? 'Show Less' : 'Show All'}
-                    </SmallBtn>
+                    </ActionButton>
                 </div>
             </div>
             <div className=''>

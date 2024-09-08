@@ -15,13 +15,16 @@ const Slider: FC<SliderProps> = ({ items }) => {
     const swiperElRef = useRef<any>(null);
     const swiperPaginationRef = useRef<any>(null);
 
+  
+   
     useEffect(() => {
         const swiperParams: any = {
             modules: [Pagination, Autoplay],
             autoplay: {
+                delay: 0,
                 disableOnInteraction: false,
             },
-            speed: 4000,
+            speed: 6000,
             loop: true,
             pagination: {
                 el: swiperPaginationRef.current,

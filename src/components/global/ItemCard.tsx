@@ -9,7 +9,7 @@ type ItemCardProps = {
 
 const ItemCard: FC<ItemCardProps> = ({ item }) => {
     return (
-        <div className='bg-white shadow-1 p-5 rounded-lg w-full max-w-[352px] my-2 mx-auto cursor-pointer hover:border border-slate-50  hover:shadow-md transition duration-200 h-full'>
+        <div className='bg-white shadow-1 p-5 rounded-lg w-full max-w-[352px] my-2 mx-auto cursor-pointer border border-slate-50 shadow-md  hover:shadow-lg transition duration-200 h-full'>
             <Image src={item.image} alt={item.name} width={300} height={250} />
             <div className='w-full flex flex-col space-y-1 mt-4'>
                 <h1 className='font-bold text-md'>{item.name.length > 20 ? shorttenString(item.name, 20) : item.name}</h1>
