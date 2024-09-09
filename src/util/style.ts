@@ -8,10 +8,10 @@ const styles = {
     flexStart: "flex justify-center items-start",
 
     paddingX: "px-6 ss:px-16 md:px-24",
-    paddingY: "sm:py-16 py-6",
+    paddingY: "py-6 ss:py-8 md:py-10",
     padding: "sm:px-16 px-6 sm:py-12 py-4",
 
-    marginX: "sm:mx-16 mx-6",
+    marginX: "mx-6 ss:mx-16 md:mx-24",
     marginY: "sm:my-16 my-6",
 };
 

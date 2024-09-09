@@ -27,6 +27,7 @@ export default function ProductDetail() {
     const { id }: any = useParams();
 
     const mobile = 400;
+    const showPerView = 6;
     const product: any = products.find((p: any) => p.id === +id);
     const favouriteProducts = products.slice(0,4);
     const firstThreeColor = colors.slice(0,3);
@@ -52,7 +53,8 @@ export default function ProductDetail() {
       };
 
     return (
-        <div className={`flex flex-col space-y-10 pt-10 bg-white ${styles.paddingX}`}>
+        <>
+        <div className={`flex flex-col space-y-10 pt-7 pb-10 bg-white ${styles.paddingX}`}>
             <div className="flex flex-col md:flex-row space-x-0 md:space-x-10 space-y-5 md:space-y-0">
                 <div className="flex space-x-5 ss:space-x-10">
                     <div className='flex flex-col space-y-4'>
@@ -88,7 +90,7 @@ export default function ProductDetail() {
                         <div className='text-sm text-gray-500'>Choose size</div>
                         <div className='flex space-x-4 items-center'>
                             {standardSize.map((size,i) => (
-                                <ActionButton key={i} handler={() => handleSizeSelect(size.fullName)} className={`w-20 h-6 rounded-full text-sm ${size.fullName === selectedSize ? 'bg-black text-white' : 'bg-gray-100 text-gray-500 '}`}>
+                                <ActionButton key={i} handler={() => handleSizeSelect(size.fullName)} className={`w-20 h-6 rounded-full text-sm ${size.fullName === selectedSize ? 'bg-black text-white' : 'bg-gray-100 text-gray-500'}`}>
                                     {width < mobile ? size.shortName : size.fullName}
                                 </ActionButton>
                             ))}
@@ -96,11 +98,6 @@ export default function ProductDetail() {
                     </div>
                     <hr />
                     <div>
-                        {/* <div className='px-4 py-2 flex items-center justify-between w-full sm:w-48 h-8 rounded-full bg-gray-200 text-gray-500'>
-                            <button className='border-none text-black'><FaMinus /></button>
-                            <span className='text-sm text-gray-700'>1</span>
-                            <button className='border-none text-black'><FaPlus /></button>
-                        </div> */}
                         <ActionButton className='bg-black text-white w-full sm:w-[370px] h-9 rounded-full'>Add to Cart</ActionButton>
                     </div>
                 </div>
@@ -122,13 +119,13 @@ export default function ProductDetail() {
                         ))
                     }
                 </div>
-                <div className='text-center'>
+                <div className={`text-center ${userReviews.length > showPerView ? 'block':'hidden'}`}>
                     <ActionButton handler={showAll} className='bg-gray-200 font-medium text-black w-32 h-7 rounded-full text-sm'>
                         {isAll ? 'Show Less' : 'Show All'}
                     </ActionButton>
                 </div>
             </div>
-            <div className=''>
+            <div>
                 <h1 className='uppercase text-lg sm:text-2xl font-bold text-center'>You might also like this</h1>
                 <div className='flex flex-col space-y-1'>
                     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8'>
@@ -140,9 +137,10 @@ export default function ProductDetail() {
                             ))
                         }
                     </div>
-                    <Footer/>
                 </div>
             </div>
         </div>
+        <Footer/>
+        </>
     )
 }

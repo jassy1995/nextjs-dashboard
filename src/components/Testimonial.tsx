@@ -54,7 +54,7 @@ const Testimonial: FC = () => {
         swiperElRef.current.initialize();
     }, []);
     return (
-        <div className={`w-full bg-white flex flex-col space-y-4 pb-[90px]`}>
+        <div className={`w-full bg-white flex flex-col space-y-4 pb-[30px]`}>
             <div className={`w-full flex justify-between`}>
                 <h1 className='uppercase text-lg sm:text-2xl font-bold'>Our happy customers</h1>
                 <div className='flex items-center sm:space-x-3'>

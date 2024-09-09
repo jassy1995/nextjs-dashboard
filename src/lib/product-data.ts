@@ -30,3 +30,51 @@ export const colors: TColor[] = [
     { name: 'indigo', value: 'bg-indigo-600'},
     { name: 'brown', value: 'bg-yellow-900'}
 ];
+
+export const cartItems: any[] = [
+  {
+      id: 1,
+      name: "The Cozy Knit Blanket",
+      price: 59.99,
+      rating: 4.8,
+      image: "/products/item1.png",
+      color: "blue",
+      size: "large"
+  },
+  {
+      id: 2,
+      name: "Adventure Backpack",
+      price: 129.99,
+      rating: 4.5,
+      image: "/products/item2.png",
+      color: "black",
+      size: "medium"
+  },
+  {
+      id: 3,
+      name: "Sparkling Citrus Hand Soap",
+      price: 7.99,
+      rating: 4.7,
+      image: "/products/item3.png",
+      color: "yellow",
+      size: "x-large"
+  },
+  {
+      id: 4,
+      name: "Artisan Coffee Blend",
+      price: 14.99,
+      rating: 4.9,
+      image: "/products/item4.png",
+      color: "brown",
+      size: "small"
+  },
+  {
+      id: 5,
+      name: "Sustainable Bamboo Toothbrush",
+      price: 5.99,
+      rating: 4.6,
+      image: "/products/item5.png",
+      color: "White",
+      size: "xx-large"
+  }
+];

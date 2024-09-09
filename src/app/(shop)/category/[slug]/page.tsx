@@ -1,5 +1,5 @@
 'use client';
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 import styles from '@/util/style';
 import FilterSidebar from '@/components/global/FilterSidebar';
@@ -11,7 +11,7 @@ import Footer from '@/components/Footer';
 import { MdOutlineFilterList } from "react-icons/md";
 import useWindowSize from '@/hooks/useWindowSize';
 import Dialog from '@/components/global/Dialog';
-
+import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 
 function ProductCategory() {
     const { slug }: any = useParams();
@@ -40,10 +40,12 @@ function ProductCategory() {
         setProducts(allProducts.slice(startIndex, endIndex));
       };
 
+    // lock the page scrolling while dialog is open
+    useBodyScrollLock(isOpen);
 
   return (
     <>
-    <div className={`flex flex-col space-y-5 pt-10 bg-white ${styles.paddingX}`}>
+    <div className={`flex flex-col space-y-4 pt-7 pb-6 bg-white ${styles.paddingX}`}>
         <p className='capitalize text-slate-700'> <span className='text-slate-500'>home</span> &gt; {slug} </p>
         <div className='flex space-x-0 md:space-x-5'>
             <div className='md:w-1/4 hidden md:block'> <FilterSidebar toggle={()=>null} onClose={()=> null }  isOpen={isOpen}/></div>
@@ -71,8 +73,8 @@ function ProductCategory() {
              </div>
             </div>
         </div>
-        <Footer/>
     </div>
+    <Footer/>
 
     <Dialog visible={isOpen && width < mdView}>
        <FilterSidebar toggle={()=>setIsOpen(!isOpen)} onClose={handleClose} isOpen={isOpen}/> 

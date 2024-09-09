@@ -10,14 +10,14 @@ export default function Overview() {
     return (
         <div className={`flex flex-col`}>
             <div className={`${styles.paddingX}`}>
-            <Hero />
+                <Hero />
             </div>
             <Brand />
             <div className={`${styles.paddingX}`}>
-            <Catalogue />
-            <Testimonial />
-            <Footer />
+                <Catalogue />
+                <Testimonial />
             </div>
+            <Footer />
         </div>
     )
 }
