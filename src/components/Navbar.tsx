@@ -1,62 +1,77 @@
-'use client'
-import Link from 'next/link'
-import React from 'react'
-import Badge from './global/Badge'
-import SearchInput from './global/SearchInput'
-import styles from '@/util/style';
+"use client";
+import Link from "next/link";
+import React from "react";
+import Badge from "./global/Badge";
+import SearchInput from "./global/SearchInput";
+import styles from "@/util/style";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { IoPersonOutline } from "react-icons/io5";
 import { RiMenuFill } from "react-icons/ri";
-
+import { useCartState } from "@/state/cart";
 
 export default function Navbar() {
-    const handleSearch = (value: string) => {
-        console.log('Search:', value);
-    };
+  const { data } = useCartState();
 
-    return (
-        <nav className={`w-full bg-white sticky top-0 shadow-sm py-4 z-50 ${styles.paddingX}}`}>
-            <div className='hidden sm:flex justify-between items-center'>
-                <h1 className='text-2xl font-bold text-gray-800'>
-                    <Link href='/'>Buy.hub</Link>
-                </h1>
-                <SearchInput onSearch={handleSearch} debounceDelay={600} className='rounded-full' />
-                <ul className="flex items-center space-x-6">
-                    <li>
-                        <Link className="" href='/cart'>
-                            <Badge count={10}>
-                                <MdOutlineShoppingCart className='w-7 h-7' />
-                            </Badge>
-                        </Link>
-                    </li>
-                    <li>
-                        <button className="btn btn-ghost rounded-btn font-medium hover:cursor-pointer hover:bg-slate-100 rounded-md px-3 py-2" type="button">
-                            Sign in
-                        </button>
-                    </li>
-                </ul>
-            </div>
-            <div className='flex flex-col space-y-2 sm:hidden z-50'>
-                <div className='flex justify-between items-center border-b border-slate-100 pb-3 mb-2'>
-                    <div className='flex items-center space-x-2'>
-                        <RiMenuFill className='w-7 h-7' />
-                        <h1 className='text-2xl font-bold text-gray-800'>
-                            <Link href='/'>Buy.hub</Link>
-                        </h1>
-                    </div>
-                    <div className="flex items-center space-x-4">
-                        <IoPersonOutline className='w-7 h-7' />
-                        <Link className="flex justify-center items-center" href='/cart'>
-                            <Badge count={12}>
-                                <MdOutlineShoppingCart className='w-7 h-7' />
-                            </Badge>
-                        </Link>
-                    </div>
-                </div>
-                <SearchInput onSearch={handleSearch} debounceDelay={600} className='rounded-lg' />
-            </div>
-        </nav >
+  const handleSearch = (value: string) => {
+    console.log("Search:", value);
+  };
 
-    )
+  return (
+    <nav
+      className={`w-full bg-white sticky top-0 shadow-sm py-4 z-50 ${styles.paddingX}}`}
+    >
+      <div className="hidden sm:flex justify-between items-center">
+        <h1 className="text-2xl font-bold text-gray-800">
+          <Link href="/">Buy.hub</Link>
+        </h1>
+        <SearchInput
+          onSearch={handleSearch}
+          debounceDelay={600}
+          className="rounded-full"
+        />
+        <ul className="flex items-center space-x-6">
+          <li>
+            <Link href="/cart">
+              <Badge count={data?.items.length || 0}>
+                <MdOutlineShoppingCart className="w-7 h-7" />
+              </Badge>
+            </Link>
+          </li>
+          <li>
+            <Link href="/login">
+              <button
+                className="btn btn-ghost rounded-btn font-medium hover:cursor-pointer hover:bg-slate-100 rounded-md px-3 py-2"
+                type="button"
+              >
+                Sign in u
+              </button>
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <div className="flex flex-col space-y-2 sm:hidden z-50">
+        <div className="flex justify-between items-center border-b border-slate-100 pb-3 mb-2">
+          <div className="flex items-center space-x-2">
+            <RiMenuFill className="w-7 h-7" />
+            <h1 className="text-2xl font-bold text-gray-800">
+              <Link href="/">Buy.hub</Link>
+            </h1>
+          </div>
+          <div className="flex items-center space-x-4">
+            <IoPersonOutline className="w-7 h-7" />
+            <Link className="flex justify-center items-center" href="/cart">
+              <Badge count={data?.items.length || 0}>
+                <MdOutlineShoppingCart className="w-7 h-7" />
+              </Badge>
+            </Link>
+          </div>
+        </div>
+        <SearchInput
+          onSearch={handleSearch}
+          debounceDelay={600}
+          className="rounded-lg"
+        />
+      </div>
+    </nav>
+  );
 }
-
