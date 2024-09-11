@@ -1,8 +1,11 @@
-import { formatNaira, shorttenString } from "@/util/global";
-import Image from "next/image";
-import React, { FC } from "react";
-import { HiOutlineTrash } from "react-icons/hi2";
-import IncrementDecrementButton from "./buttons/IncrementDecrementButton";
+'use client';
+import { formatNaira, shorttenString } from '@/util/global';
+import Image from 'next/image';
+import React, { FC } from 'react';
+import { HiOutlineTrash } from 'react-icons/hi2';
+import IncrementDecrementButton from './buttons/IncrementDecrementButton';
+import useWindowSize from '@/hooks/useWindowSize';
+import { removeFromCart, useCartState } from '@/state/cart';
 
 type CartItemCardProps = {
   item: any;
@@ -10,27 +13,40 @@ type CartItemCardProps = {
 
 const CartItemCard: FC<CartItemCardProps> = ({ item }) => {
   const maxLenght = 15;
+  const { width } = useWindowSize();
+  const smallerScreen = width < 400;
+
+  const { data, setData } = useCartState();
+
+  const cartState = data || {
+    items: [],
+    itemsPrice: 0,
+    taxPrice: 0,
+    shippingPrice: 0,
+    totalPrice: 0,
+  };
 
   return (
     <div className="flex flex-col border-b border-slate-100 last:border-b-0 p-5">
       <div className="flex space-x-5">
-        <Image src={item.image} alt="product" width={80} height={80} />
+        <Image src={item.image} alt="product" width={60} height={60} />
         <div className="flex flex-col w-full">
           <div className="flex justify-between items-center">
             <h1 className="font-normal text-[16px]">
-              {item.name.length > maxLenght
+              {item.name.length > maxLenght && smallerScreen
                 ? shorttenString(item.name, maxLenght + 1)
                 : item.name}
             </h1>
-            <HiOutlineTrash className="text-red-500 hover:text-red-800 hover:cursor-pointer hidden sm:block" />
+            <button
+              onClick={() => removeFromCart(item, setData, cartState)}
+              className="hover:bg-red-100 w-6 h-6 rounded-full flex justify-center items-center outline-none"
+            >
+              <HiOutlineTrash className="text-red-500 hover:text-red-800 hover:cursor-pointer hidden sm:block" />
+            </button>
           </div>
           <p className="flex items-center space-x-1 text-sm">
             <span className="text-[13px]">Size:</span>
             <span className="text-[13px] text-gray-600">{item.size}</span>
-          </p>
-          <p className="flex items-center space-x-1">
-            <span className="text-[13px]">Color:</span>
-            <span className="text-[13px] text-gray-600">{item.color}</span>
           </p>
           <div className="flex justify-between items-center">
             <h1 className="font-medium text-black text-[16px]">
@@ -41,10 +57,13 @@ const CartItemCard: FC<CartItemCardProps> = ({ item }) => {
         </div>
       </div>
       <div className="flex sm:hidden justify-between items-center mt-4">
-        <div className="flex items-center space-x-2 bg-red-50 hover:bg-red-100 px-3 py-[0.5px] rounded-full">
+        <button
+          onClick={() => removeFromCart(item, setData, cartState)}
+          className="flex items-center space-x-2 bg-red-50 hover:bg-red-100 px-3 py-[0.5px] rounded-full outline-none"
+        >
           <HiOutlineTrash className="text-red-500 hover:text-red-800 hover:cursor-pointer" />
           <span className="text-red-500">Remove</span>
-        </div>
+        </button>
         <IncrementDecrementButton
           item={item}
           className="flex hover:bg-gray-200"
