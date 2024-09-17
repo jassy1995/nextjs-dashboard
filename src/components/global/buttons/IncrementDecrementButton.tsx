@@ -1,9 +1,6 @@
-import {
-  decrementQuantity,
-  incrementQuantity,
-  useCartState,
-} from '@/state/cart';
-import React, { FC } from 'react';
+import { useCartStore } from '@/stores/cart';
+import { OrderItem } from '@/util/model';
+import React, { FC, useEffect, useState } from 'react';
 import { HiMinus, HiOutlinePlusSmall } from 'react-icons/hi2';
 
 type IncrementDecrementButtonProps = {
@@ -15,33 +12,39 @@ const IncrementDecrementButton: FC<IncrementDecrementButtonProps> = ({
   className,
   item,
 }) => {
-  const { data, setData } = useCartState();
+  const { items, increase, decrease } = useCartStore((state) => state);
+  const [existItem, setExistItem] = useState<OrderItem | undefined>();
 
-  const cartState = data || {
-    items: [],
-    itemsPrice: 0,
-    taxPrice: 0,
-    shippingPrice: 0,
-    totalPrice: 0,
+  const product = items.find((x) => x.id === item.id);
+
+  useEffect(() => {
+    setExistItem(items.find((i) => i.id === item.id));
+  }, [item, items]);
+
+  const handleIncrement = async () => {
+    if (increase && existItem) {
+      increase(existItem);
+    }
   };
-
-  const addedItem = item.quantity
-    ? item
-    : cartState.items.find((item) => item.id === item.id);
+  const handleDecrement = async () => {
+    if (decrease && existItem) {
+      decrease(existItem);
+    }
+  };
 
   return (
     <div
       className={`px-4 py-[2px] items-center justify-between w-28 rounded-full bg-gray-100 text-gray-500 ${className}`}
     >
       <button
-        onClick={() => decrementQuantity(addedItem, setData, cartState)}
+        onClick={handleDecrement}
         className="border-none text-slate-700 text-xl"
       >
         <HiMinus />
       </button>
-      <span className="text-sm text-gray-800">{addedItem.quantity}</span>
+      <span className="text-sm text-gray-800">{product?.quantity}</span>
       <button
-        onClick={() => incrementQuantity(addedItem, setData, cartState)}
+        onClick={handleIncrement}
         className="border-none text-slate-700 text-xl"
       >
         <HiOutlinePlusSmall />

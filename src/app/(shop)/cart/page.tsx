@@ -2,23 +2,20 @@
 import Footer from '@/components/Footer';
 import ActionButton from '@/components/global/buttons/ActionButton';
 import CartItemCard from '@/components/global/CartItemCard';
-import { useCartState } from '@/state/cart';
 import { formatNaira } from '@/util/global';
 import styles from '@/util/style';
 import React, { FC } from 'react';
 import { useRouter } from 'next/navigation';
+import { useCartStore } from '@/stores/cart';
 
 const Cart: FC = () => {
   const router = useRouter();
 
-  const { data } = useCartState();
+  const { items, itemsPrice, shippingPrice, taxPrice, totalPrice } =
+    useCartStore((state) => state);
 
-  const cartState = data || {
-    items: [],
-    itemsPrice: 0,
-    taxPrice: 0,
-    shippingPrice: 0,
-    totalPrice: 0,
+  const handleCheckout = () => {
+    router.push('/checkout');
   };
 
   return (
@@ -28,7 +25,7 @@ const Cart: FC = () => {
           {' '}
           <span className="text-slate-500">home</span> &gt; Cart{' '}
         </p>
-        {cartState?.items.length === 0 && (
+        {items.length === 0 && (
           <div className="flex flex-col justify-center items-center text-slate-500 italic w-full h-96 border border-slate-200 rounded-lg">
             <span className="font-medium text-slate-800 text-lg sm:text-2xl">
               Cart is empty!
@@ -42,12 +39,12 @@ const Cart: FC = () => {
             </ActionButton>
           </div>
         )}
-        {cartState?.items.length > 0 && (
+        {items.length > 0 && (
           <>
             <h1 className="text-lg sm:text-2xl font-bold mb-4">Your Cart</h1>
             <div className="flex flex-col sm:flex-row sm:space-x-5 space-x-0 sm:space-y-0 space-y-5 rounded-lg">
               <div className="w-full sm:w-2/3 border border-slate-200 rounded-lg">
-                {cartState?.items.map((item: any) => (
+                {items.map((item: any) => (
                   <CartItemCard key={item.id} item={item} />
                 ))}
               </div>
@@ -58,25 +55,25 @@ const Cart: FC = () => {
                     <p className="flex justify-between items-center">
                       <span className="text-gray-600 text-sm">Subtotal</span>
                       <span className="text-[16px] text-slate-800">
-                        {formatNaira(cartState?.itemsPrice)}
+                        {formatNaira(itemsPrice)}
                       </span>
                     </p>
                     <p className="flex justify-between items-center">
                       <span className="text-gray-600 text-sm">Tax</span>
                       <span className="text-[16px] text-slate-800">
-                        {formatNaira(cartState?.taxPrice)}
+                        {formatNaira(taxPrice)}
                       </span>
                     </p>
                     <p className="flex justify-between items-center">
                       <span className="text-gray-600 text-sm">Shipping</span>
                       <span className="text-[16px] text-slate-800">
-                        {formatNaira(cartState?.shippingPrice)}
+                        {formatNaira(shippingPrice)}
                       </span>
                     </p>
                     <p className="flex justify-between items-center">
                       <span className="text-gray-600 text-sm">Total</span>
                       <span className="text-[16px] text-slate-800">
-                        {formatNaira(cartState?.totalPrice)}
+                        {formatNaira(totalPrice)}
                       </span>
                     </p>
                     <hr />
@@ -98,7 +95,10 @@ const Cart: FC = () => {
                         >
                           Back to Store
                         </ActionButton>
-                        <ActionButton className="bg-black text-white rounded-full  h-9 w-full hover:bg-slate-800">
+                        <ActionButton
+                          handler={handleCheckout}
+                          className="bg-black text-white rounded-full  h-9 w-full hover:bg-slate-800"
+                        >
                           CHECKOUT
                         </ActionButton>
                       </div>

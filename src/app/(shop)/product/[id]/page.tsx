@@ -12,11 +12,11 @@ import TestimonialCard from '@/components/global/TestimonialCard';
 import ItemCard from '@/components/global/ItemCard';
 import Footer from '@/components/Footer';
 import useWindowSize from '@/hooks/useWindowSize';
-import Link from 'next/link';
 import { sizes } from '@/lib/product-data';
-import { addToCart, useCartState } from '@/state/cart';
 import IncrementDecrementButton from '@/components/global/buttons/IncrementDecrementButton';
 import { useRouter } from 'next/navigation';
+import ImagePreview from '@/components/global/ImagePreview';
+import { useCartStore } from '@/stores/cart';
 
 export default function ProductDetail() {
   const { width } = useWindowSize();
@@ -31,19 +31,13 @@ export default function ProductDetail() {
   const [reviews, setReviews] = useState(userReviews.slice(0, 6));
   const [isAll, setIsAll] = useState(false);
   const [isAddToCart, setIsAddToCart] = useState(false);
+  const [isImageSet, setIsImageSet] = useState('');
+  const [isPreview, setIsPreview] = useState(false);
   const [selectedSize, setSelectedSize] = useState(
     width < mobile ? sizes[0].shortName : sizes[0].fullName
   );
 
-  const { data, setData } = useCartState();
-
-  const cartState = data || {
-    items: [],
-    itemsPrice: 0,
-    taxPrice: 0,
-    shippingPrice: 0,
-    totalPrice: 0,
-  };
+  const { increase } = useCartStore((state) => state);
 
   const showAll = () => {
     if (!isAll) {
@@ -59,15 +53,19 @@ export default function ProductDetail() {
     setSelectedSize(size);
   };
 
-  const handleAddToCart = () => {
-    const updatedProduct = {
-      ...product,
-      color: '',
-      size: selectedSize,
-    };
-    addToCart(updatedProduct, setData, cartState);
-    setIsAddToCart(true);
+  const handleAddToCart = (product: any) => {
+    if (!isAddToCart) {
+      setIsAddToCart(true);
+    }
+    if (increase) {
+      increase(product);
+    }
     notify('success', 'Product added to cart');
+  };
+
+  const handleSetImage = (image: string) => {
+    setIsImageSet(image);
+    setIsPreview(true);
   };
 
   return (
@@ -79,29 +77,37 @@ export default function ProductDetail() {
           <div className="flex space-x-5 ss:space-x-8">
             <div className="flex flex-col space-y-6">
               <Image
+                onClick={() => handleSetImage(product?.image)}
                 src={product?.image}
                 alt="product"
                 width={100}
                 height={100}
+                className="cursor-zoom-in"
               />
               <Image
+                onClick={() => handleSetImage(product?.image)}
                 src={product?.image}
                 alt="product"
                 width={100}
                 height={100}
+                className="cursor-zoom-in"
               />
               <Image
+                onClick={() => handleSetImage(product?.image)}
                 src={product?.image}
                 alt="product"
                 width={100}
                 height={100}
+                className="cursor-zoom-in"
               />
             </div>
             <Image
+              onClick={() => handleSetImage(product?.image)}
               src={product?.image}
               alt="product"
               width={350}
               height={300}
+              className="cursor-zoom-in"
             />
           </div>
           <div className="flex flex-col space-y-4 md:space-y-0 justify-between">
@@ -146,7 +152,7 @@ export default function ProductDetail() {
               </div>
             ) : (
               <ActionButton
-                handler={handleAddToCart}
+                handler={() => handleAddToCart(product)}
                 className="bg-black text-white w-full sm:w-[200px] h-9 rounded-full hover:bg-slate-800"
               >
                 Add to Cart
@@ -166,7 +172,7 @@ export default function ProductDetail() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {reviews.map((item: any, i: number) => (
-              <div key={i} className="">
+              <div key={i}>
                 <TestimonialCard item={item} />
               </div>
             ))}
@@ -189,15 +195,19 @@ export default function ProductDetail() {
           <div className="flex flex-col space-y-1">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8">
               {favouriteProducts.map((item) => (
-                <Link href={`/product/${item.id}`} key={item.id}>
-                  <ItemCard item={item} />
-                </Link>
+                <ItemCard key={item.id} item={item} />
               ))}
             </div>
           </div>
         </div>
       </div>
       <Footer />
+      {isPreview && (
+        <ImagePreview
+          imageUrl={isImageSet}
+          onClose={() => setIsPreview(false)}
+        />
+      )}
     </>
   );
 }

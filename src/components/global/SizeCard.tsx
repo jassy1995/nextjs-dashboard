@@ -4,8 +4,8 @@ import { sizes } from '@/lib/product-data';
 import { IoIosClose } from 'react-icons/io';
 import ActionButton from './buttons/ActionButton';
 import { useRouter } from 'next/navigation';
-import { addToCart, useCartState } from '@/state/cart';
 import { notify } from '@/util/global';
+import { useCartStore } from '@/stores/cart';
 
 type SizeCardProps = {
   close: () => void;
@@ -16,15 +16,7 @@ const SizeCard: React.FC<SizeCardProps> = ({ close, product }) => {
   const [selectedSize, setSelectedSize] = useState(sizes[0].fullName);
   const router = useRouter();
 
-  const { data, setData } = useCartState();
-
-  const cartState = data || {
-    items: [],
-    itemsPrice: 0,
-    taxPrice: 0,
-    shippingPrice: 0,
-    totalPrice: 0,
-  };
+  const { increase } = useCartStore((state) => state);
 
   const handleSizeSelect = (size: string) => {
     setSelectedSize(size);
@@ -35,7 +27,9 @@ const SizeCard: React.FC<SizeCardProps> = ({ close, product }) => {
       color: '',
       size: selectedSize,
     };
-    addToCart(updatedProduct, setData, cartState);
+    if (increase) {
+      increase(updatedProduct);
+    }
     close();
     notify('success', 'Product added to cart');
   };
