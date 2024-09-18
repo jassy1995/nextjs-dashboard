@@ -54,14 +54,14 @@ export default function Login() {
 
       <div className="mb-4">
         <label
-          className="block text-gray-700 text-sm font-bold mb-2"
+          className="block text-gray-700 text-sm font-medium mb-2"
           htmlFor="email"
         >
           Email
         </label>
         <input
           type="email"
-          className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+          className={`shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:text-gray-300 ${
             errors.email && 'border-red-500'
           }`}
           id="email"
@@ -75,14 +75,14 @@ export default function Login() {
 
       <div className="mb-6">
         <label
-          className="block text-gray-700 text-sm font-bold mb-2"
+          className="block text-gray-700 text-sm font-medium mb-2"
           htmlFor="password"
         >
           Password
         </label>
         <input
           type="password"
-          className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+          className={`shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:text-gray-300 ${
             errors.password && 'border-red-500'
           }`}
           id="password"
@@ -96,14 +96,14 @@ export default function Login() {
 
       <button
         type="submit"
-        className="bg-blue-500 hover:bg-blue-700 text-white w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        className="w-full font-medium py-2 px-4  focus:outline-none focus:shadow-outline bg-black bg-opacity-90 text-white  rounded-lg hover:bg-slate-900"
       >
         {loading ? <Loader /> : 'Submit'}
       </button>
       <p className="mt-6 flex items-center space-x-1">
         <span>Don&apos;t have an account?</span>
         <Link href="/signup">
-          <span className="text-blue-500 hover:underline underline-offset-4">
+          <span className="text-blue-500 hover:underline underline-offset-2">
             Sign up here
           </span>
         </Link>
