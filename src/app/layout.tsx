@@ -31,7 +31,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} antialiased bg-slate-150`}>
         <ClientProvider>
-          <ToastContainer />
+          <ToastContainer theme="dark" position="bottom-center" limit={1} />
           <Suspense fallback={<Spinner />}>{children}</Suspense>
         </ClientProvider>
       </body>
