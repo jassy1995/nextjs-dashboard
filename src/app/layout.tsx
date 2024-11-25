@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Suspense } from 'react';
 import Spinner from '@/components/global/Spinner';
+import GoogleButtonProvider from '@/components/global/GoogleButtonProvider';
 
 export const metadata: Metadata = {
   title: 'Buy Hub',
@@ -32,7 +33,11 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased bg-slate-150`}>
         <ClientProvider>
           <ToastContainer theme="dark" position="bottom-center" limit={1} />
-          <Suspense fallback={<Spinner />}>{children}</Suspense>
+          <Suspense fallback={<Spinner />}>
+          <GoogleButtonProvider>
+            {children}
+          </GoogleButtonProvider>
+          </Suspense>
         </ClientProvider>
       </body>
     </html>

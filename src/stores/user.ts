@@ -2,14 +2,13 @@ import { UserState } from '@/util/model';
 import { create } from 'zustand';
 import { PersistStorage, persist } from 'zustand/middleware';
 
-// Initial state of the user
 const initialState: Omit<
   UserState,
   'loggedIn' | 'loggedOut' | 'setRedirectPath'
 > = {
   user: {},
-  isSignedIn: null,
-  redirectPath: null,
+  isSignedIn: false,
+  redirectPath: '/',
 };
 
 // Custom storage for Zustand persistence

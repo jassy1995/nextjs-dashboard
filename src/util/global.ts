@@ -34,3 +34,7 @@ export const isObjectEmpty = (obj: any) => {
 export const round2 = (num: number) => {
   return Math.round((num + Number.EPSILON) * 100) / 100;
 };
+export const formatErrorMessage = (err: any) => {
+  const errStr = err?.response?.data?.message?.replace('body.', '');
+  return errStr ? errStr.charAt(0).toUpperCase() + errStr.slice(1) : '';
+}

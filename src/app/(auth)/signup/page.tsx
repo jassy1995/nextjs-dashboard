@@ -1,142 +1,124 @@
 'use client';
 
 import { useSignup } from '@/api/auth';
-import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { Spinner } from '@nextui-org/react';
-import { useState } from 'react';
-import { notify } from '@/util/global';
+import {FcGoogle} from "react-icons/fc";
+import {useAuthHandler} from "@/hooks/useAuthHandler";
+import {useState} from "react";
+import {useUserStore} from "@/stores/user";
 
 const Signup = () => {
-  const router = useRouter();
   const { mutateAsync: signup, isPending: isSigningUp } = useSignup();
-
+  const { handleGoogleAuth, handleEmailSignUp} = useAuthHandler();
+  const { redirectPath } = useUserStore((state) => state);
+  const location = redirectPath?.includes('checkout') ? redirectPath : '/login';
   const [errorMessage, setErrorMessage] = useState('');
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const onSubmit = (data: any) =>{
+    handleEmailSignUp(data, signup, location).then((res:any)=>{
+      if(res.error)setErrorMessage(res.error)
+    })
+  }
 
-  const onSubmit = async (data: any) => {
-    try {
-      const newUser: any = {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        phone: data.phone,
-        isAdmin: data.isAdmin || false,
-      };
-      await signup(newUser);
-      notify('success', 'Signup successful');
-      router.push('/login');
-    } catch (error: any) {
-      const errStr = error?.response?.data?.message?.replace('body.', '');
-      const computeMsg = errStr
-        ? errStr.charAt(0).toUpperCase() + errStr.slice(1)
-        : '';
-      setErrorMessage(computeMsg || 'Signup failed! Please try again.');
-    }
-  };
+  const { register, handleSubmit, formState: { errors }} = useForm();
 
   return (
     <div className="flex flex-col items-center justify-center bg-white rounded-lg p-8 sm:p-12 shadow-md w-full max-w-md  space-y-5">
       <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
         {errorMessage ? (
-          <div className="border-red-600 bg-red-100 text-red-600 text-center py-2 px-3 rounded-lg mb-4">
-            {errorMessage}
-          </div>
+            <div className="border-red-600 bg-red-100 text-red-600 text-center py-2 px-3 rounded-lg mb-4">
+              {errorMessage}
+            </div>
         ) : (
-          <h1 className="text-2xl font-bold text-center mb-4">Sign up</h1>
+            <h1 className="text-2xl font-bold text-center mb-4">Sign up</h1>
         )}
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-medium mb-2"
-            htmlFor="name"
+              className="block text-gray-700 text-sm font-medium mb-2"
+              htmlFor="name"
           >
             Full name
           </label>
           <input
-            type="text"
-            className={`shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-              errors.name && 'border-red-500'
-            }`}
-            id="name"
-            placeholder="Name"
-            {...register('name', { required: true })}
+              type="text"
+              className={`shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                  errors.name && 'border-red-500'
+              }`}
+              id="name"
+              placeholder="Name"
+              {...register('name', {required: true})}
           />
           {errors.name && (
-            <p className="text-red-500 text-xs mt-1">Name is required</p>
+              <p className="text-red-500 text-xs mt-1">Name is required</p>
           )}
         </div>
 
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-medium mb-2"
-            htmlFor="email"
+              className="block text-gray-700 text-sm font-medium mb-2"
+              htmlFor="email"
           >
             Email
           </label>
           <input
-            type="email"
-            className={`shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:text-gray-300 ${
-              errors.email && 'border-red-500'
-            }`}
-            id="email"
-            placeholder="Email"
-            {...register('email', { required: true })}
+              type="email"
+              className={`shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:text-gray-300 ${
+                  errors.email && 'border-red-500'
+              }`}
+              id="email"
+              placeholder="Email"
+              {...register('email', {required: true})}
           />
           {errors.email && (
-            <p className="text-red-500 text-xs mt-1">Email is required</p>
+              <p className="text-red-500 text-xs mt-1">Email is required</p>
           )}
         </div>
 
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-medium mb-2"
-            htmlFor="phone"
+              className="block text-gray-700 text-sm font-medium mb-2"
+              htmlFor="phone"
           >
             Phone
           </label>
           <input
-            type="text"
-            className={`shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:text-gray-300 ${
-              errors.phone && 'border-red-500'
-            }`}
-            id="phone"
-            placeholder="Phone"
-            {...register('phone', { required: true })}
+              type="text"
+              className={`shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:text-gray-300 ${
+                  errors.phone && 'border-red-500'
+              }`}
+              id="phone"
+              placeholder="Phone"
+              {...register('phone', {required: true})}
           />
           {errors.phone && (
-            <p className="text-red-500 text-xs mt-1">Phone is required</p>
+              <p className="text-red-500 text-xs mt-1">Phone is required</p>
           )}
         </div>
 
         <div className="mb-6">
           <label
-            className="block text-gray-700 text-sm font-medium mb-2"
-            htmlFor="password"
+              className="block text-gray-700 text-sm font-medium mb-2"
+              htmlFor="password"
           >
             Password
           </label>
           <input
-            type="password"
-            className={`shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:text-gray-300 ${
-              errors.password && 'border-red-500'
-            }`}
-            id="password"
-            placeholder="Password"
-            {...register('password', { required: true })}
+              type="password"
+              className={`shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-sm placeholder:text-gray-300 ${
+                  errors.password && 'border-red-500'
+              }`}
+              id="password"
+              placeholder="Password"
+              {...register('password', {required: true})}
           />
           {errors.password && (
-            <p className="text-red-500 text-xs mt-1">Password is required</p>
+              <p className="text-red-500 text-xs mt-1">Password is required</p>
           )}
         </div>
 
-        <div className="mb-6">
+        {/* <div className="mb-6">
           <label className="inline-flex items-center">
             <input
               type="checkbox"
@@ -145,14 +127,14 @@ const Signup = () => {
             />
             <span className="ml-2 text-gray-700">Sign up as admin</span>
           </label>
-        </div>
+        </div>*/}
 
         <button
-          disabled={isSigningUp}
-          type="submit"
-          className="w-full font-medium py-2 px-4  focus:outline-none focus:shadow-outline bg-black bg-opacity-90 text-white  rounded-lg hover:bg-slate-900 flex justify-center items-center space-x-3 disabled:opacity-95 disabled:cursor-not-allowed"
+            disabled={isSigningUp}
+            type="submit"
+            className="w-full font-medium py-2 px-4  focus:outline-none focus:shadow-outline bg-black bg-opacity-90 text-white  rounded-lg hover:bg-slate-900 flex justify-center items-center space-x-3 disabled:opacity-95 disabled:cursor-not-allowed"
         >
-          {isSigningUp && <Spinner size="sm" color="white" />}
+          {isSigningUp && <Spinner size="sm" color="white"/>}
           <span>Submit</span>
         </button>
         <p className="mt-6 flex items-center space-x-1">
@@ -165,20 +147,14 @@ const Signup = () => {
         </p>
       </form>
       <div className="w-full flex items-center space-x-3">
-        <span className="border-b w-1/2"></span>
+      <span className="border-b w-1/2"></span>
         <span>or</span>
         <span className="border-b w-1/2"></span>
       </div>
       <div className="flex justify-center items-center w-full">
-        <button className="flex justify-center items-center space-x-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 w-full outline-none">
-          <Image
-            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
-            className="object-cover"
-            width={20}
-            height={20}
-            alt="Google Logo"
-          />
-          <span className="text-gray-800">Sign up with Google</span>
+      <button onClick={()=>handleGoogleAuth(location)} className="flex justify-center items-center space-x-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 w-full outline-none">
+        <FcGoogle className="w-6 h-6" />
+         <span className="text-gray-800">Sign up with Google</span>
         </button>
       </div>
     </div>
@@ -186,3 +162,5 @@ const Signup = () => {
 };
 
 export default Signup;
+
+

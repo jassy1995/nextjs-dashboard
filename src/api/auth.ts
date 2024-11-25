@@ -3,7 +3,7 @@ import http from '@/util/http';
 
 export const useSignup = () => {
   return useMutation({
-    mutationFn: (data) => {
+    mutationFn: (data:any) => {
       return http.post('/api/auth/signup/email', data);
     },
     retry: false,
@@ -12,8 +12,17 @@ export const useSignup = () => {
 
 export const useLogin = () => {
   return useMutation({
-    mutationFn: (data) => {
+    mutationFn: (data:any) => {
       return http.post('/api/auth/login/email', data);
+    },
+    retry: false,
+  });
+};
+
+export const useLoginWithGoogle = () => {
+  return useMutation({
+    mutationFn: (data:any) => {
+      return http.post('/api/auth/login/google', data);
     },
     retry: false,
   });

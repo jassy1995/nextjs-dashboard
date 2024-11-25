@@ -1,49 +1,39 @@
 'use client';
 
-import { useLogin } from '@/api/auth';
+import { useLogin, useLoginWithGoogle } from '@/api/auth';
 import { useUserStore } from '@/stores/user';
-import { notify } from '@/util/global';
 import { Spinner } from '@nextui-org/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import {FcGoogle} from "react-icons/fc";
+import {useAuthHandler} from "@/hooks/useAuthHandler";
+
 
 export default function Login() {
   const { mutateAsync: logIn, isPending: isLogging } = useLogin();
-  const router = useRouter();
   const searchParams = useSearchParams();
+  const { handleGoogleAuth, handleEmailSignIn } = useAuthHandler();
+  const { loggedIn, isSignedIn, setRedirectPath } = useUserStore((state) => state);
+  const router = useRouter();
+
   const location = searchParams.get('redirectFrom') || '/';
   const [errorMessage, setErrorMessage] = useState('');
 
-  const { loggedIn } = useUserStore((state) => state);
+  const onSubmit = (data: any) =>{
+    handleEmailSignIn(data, logIn, location).then((res:any)=>{
+      if(res.error)setErrorMessage(res.error)
+    })
+  }
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const {register, handleSubmit, formState: { errors }} = useForm();
 
-  const onSubmit = async (data: any) => {
-    try {
-      const newUser: any = {
-        email: data.email,
-        password: data.password,
-        remember: data.remember || false,
-      };
-      const res = await logIn(newUser);
-      if (loggedIn) loggedIn(res.data.profile);
-      notify('success', 'Login successful');
+  useEffect(() => {
+    if(isSignedIn) {
       router.push(location);
-    } catch (error: any) {
-      const errStr = error?.response?.data?.message?.replace('body.', '');
-      const computeMsg = errStr
-        ? errStr.charAt(0).toUpperCase() + errStr.slice(1)
-        : '';
-      setErrorMessage(computeMsg || 'Login failed! Please try again.');
     }
-  };
+  }, [isSignedIn,location, router]);
 
   return (
     <div className="flex flex-col items-center justify-center bg-white rounded-lg p-8 sm:p-12 shadow-md w-full max-w-md  space-y-5">
@@ -130,14 +120,8 @@ export default function Login() {
         <span className="border-b w-1/2"></span>
       </div>
       <div className="flex justify-center items-center w-full">
-        <button className="flex justify-center items-center space-x-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 w-full outline-none">
-          <Image
-            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
-            className="object-cover"
-            width={20}
-            height={20}
-            alt="Google Logo"
-          />
+        <button onClick={() => handleGoogleAuth(location)} className="flex justify-center items-center space-x-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 w-full outline-none">
+            <FcGoogle className="w-6 h-6" />
           <span className="text-gray-800">Sign in with Google</span>
         </button>
       </div>

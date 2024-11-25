@@ -10,8 +10,11 @@ import { RiMenuFill } from 'react-icons/ri';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/stores/cart';
 import { useUserStore } from '@/stores/user';
+import { signOut, useSession } from 'next-auth/react';
+
 
 export default function Navbar() {
+  const { data: session } = useSession();
   const { items } = useCartStore((state) => state);
   const { loggedOut, isSignedIn, setRedirectPath } = useUserStore(
     (state) => state
@@ -27,6 +30,7 @@ export default function Navbar() {
     const redirectTo = '/';
     if (loggedOut && setRedirectPath) {
       loggedOut();
+      if (session && session.user) signOut();
       setRedirectPath(redirectTo);
       router.push(redirectTo);
     }
