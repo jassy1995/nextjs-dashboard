@@ -2,8 +2,9 @@ import { useRef, useEffect, FC } from 'react';
 import { Pagination, Autoplay, Navigation } from 'swiper/modules';
 import { register } from 'swiper/element/bundle';
 import TestimonialCard from './global/TestimonialCard';
-import reviews from '@/lib/review';
 import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
+import {useGetReviews} from "@/api/review";
+import {Skeleton} from "@nextui-org/react";
 
 register();
 
@@ -12,6 +13,8 @@ const Testimonial: FC = () => {
     const swiperPaginationRef = useRef<any>(null);
     const swiperNextBtnRef = useRef(null);
     const swiperPrevBtnRef = useRef(null);
+
+    const { data: { reviews = [1,2,3,4,5,6] } = {}, isLoading } = useGetReviews({limit: 10});
 
     useEffect(() => {
         const swiperParams: any = {
@@ -33,19 +36,19 @@ const Testimonial: FC = () => {
                     spaceBetween: 30,
                 },
                 480: {
-                    slidesPerView: 2,
+                    slidesPerView: 1.5,
                     spaceBetween: 30,
                 },
                 620: {
-                    slidesPerView: 2.5,
+                    slidesPerView: 2,
                     spaceBetween: 30,
                 },
                 1060: {
-                    slidesPerView: 3,
+                    slidesPerView: 2.5,
                     spaceBetween: 30,
                 },
                 1200: {
-                    slidesPerView: 4,
+                    slidesPerView: 3,
                     spaceBetween: 30,
                 },
             }
@@ -66,12 +69,14 @@ const Testimonial: FC = () => {
                     </button>
                 </div>
             </div>
-            <div>
+            <div className='w-full'>
                 <swiper-container ref={swiperElRef} init={false}>
-                    {
-                        reviews.map((item: any, i: number) => (
+                    {reviews.map((item: any, i: number) => (
                             <swiper-slide key={i}>
-                                <TestimonialCard item={item} />
+                                {isLoading ?
+                                    <Skeleton className="border border-slate-200 h-28  rounded-lg flex flex-col justify-center items-cente space-y-2 w-full p-4"/>
+                                    :
+                                    <TestimonialCard item={item} />}
                             </swiper-slide>
                         ))
                     }

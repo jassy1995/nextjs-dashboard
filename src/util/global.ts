@@ -38,3 +38,10 @@ export const formatErrorMessage = (err: any) => {
   const errStr = err?.response?.data?.message?.replace('body.', '');
   return errStr ? errStr.charAt(0).toUpperCase() + errStr.slice(1) : '';
 }
+export const formatDate = (isoDate:string) => {
+  const date = new Date(isoDate);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+}

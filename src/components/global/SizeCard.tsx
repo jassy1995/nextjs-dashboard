@@ -43,31 +43,34 @@ const SizeCard: React.FC<SizeCardProps> = ({ close, product }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg p-8 w-full max-w-[600px] mx-auto border border-slate-50 shadow-md  hover:shadow-lg transition duration-200 h-full space-y-8">
-      <div className="flex justify-between items-center">
+    <div className="w-full max-w-lg bg-white rounded-lg shadow-md py-3 pb-5">
+      <header className="flex justify-between items-center px-6">
         <h1 className="font-medium text-lg text-center text-slate-800">
+          Sizes
+        </h1>
+      </header>
+      <hr className='my-4'/>
+      <div className='px-6 space-y-5'>
+        <h1 className="font-normal text-md text-slate-800">
           Please select your size
         </h1>
-        <IoIosClose
-          onClick={close}
-          className="text-xl w-7 h-7 rounded-full hover:bg-gray-200 cursor-pointer"
+        <ProductSize
+            className="grid grid-cols-3 sm:grid-cols-4 gap-4"
+            selectedSize={selectedSize}
+            handleSizeSelect={handleSizeSelect}
         />
       </div>
-      <ProductSize
-        className="grid grid-cols-3 sm:grid-cols-4 gap-4"
-        selectedSize={selectedSize}
-        handleSizeSelect={handleSizeSelect}
-      />
-      <div className="flex flex-col ss:flex-row space-x-0 items-center ss:space-x-4 space-y-4 ss:space-y-0">
+      <hr className='my-5'/>
+      <div className="px-6 flex flex-col ss:flex-row space-x-0 items-center ss:space-x-4 space-y-4 ss:space-y-0">
         <ActionButton
           handler={handleProceedToCart}
-          className="bg-gray-100 text-gray-500 rounded-full h-9 w-full  hover:bg-gray-200 text-sm uppercase"
+          className="bg-gray-100 border border-gray-200 text-gray-600 rounded-lg h-9 w-full font-medium  hover:bg-gray-200 text-sm uppercase"
         >
           Proceed to cart
         </ActionButton>
         <ActionButton
           handler={handleContinueShopping}
-          className="bg-black text-white rounded-full h-9 w-full hover:bg-slate-800 text-sm uppercase"
+          className="bg-gray-300 border border-black text-gray-600 rounded-lg h-9 w-full font-medium text-sm uppercase"
         >
           continue shopping
         </ActionButton>

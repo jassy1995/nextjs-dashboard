@@ -19,6 +19,29 @@
 * {
   scroll-behavior: smooth;
 }
+
+/* Hide the scrollbar */
+html {
+  overflow-y: scroll;
+  scrollbar-width: none; /* For Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge */
+}
+
+/* Add scrollbar only when scrolling */
+body {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+}
+
+
+
+
+
+
 .border-shadow {
   box-shadow:
     0 0 #0000,
@@ -254,4 +277,11 @@
 }
 @keyframes l27 {
   100% {transform: rotate(1turn)}
+}
+.filter-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.filter-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }

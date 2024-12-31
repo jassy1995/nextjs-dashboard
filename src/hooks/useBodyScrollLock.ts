@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+ import { useEffect } from 'react';
 
 const useBodyScrollLock = (isLocked: boolean) => {
     useEffect(() => {
@@ -16,3 +16,42 @@ const useBodyScrollLock = (isLocked: boolean) => {
 };
 
 export default useBodyScrollLock;
+
+/*import { useEffect } from 'react';
+
+const useBodyScrollLock = (isLocked: boolean) => {
+    useEffect(() => {
+        if (isLocked) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isLocked]);
+};
+
+export default useBodyScrollLock;*/
+
+/*
+import { useEffect } from 'react';
+
+const useBodyScrollLock = (isOpen: boolean) => {
+    useEffect(() => {
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+        if (isOpen) {
+            document.body.style.paddingRight = `${scrollbarWidth}px`;
+        } else {
+            document.body.style.paddingRight = '';
+        }
+
+        return () => {
+            document.body.style.paddingRight = '';
+        };
+    }, [isOpen]);
+};
+
+export default useBodyScrollLock;*/

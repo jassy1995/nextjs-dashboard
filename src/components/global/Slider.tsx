@@ -1,15 +1,17 @@
-import { useRef, useEffect, FC } from 'react';
-import { Pagination, Autoplay } from 'swiper/modules';
-import { register } from 'swiper/element/bundle';
+import {useRef, useEffect, FC} from 'react';
+import {Pagination, Autoplay} from 'swiper/modules';
+import {register} from 'swiper/element/bundle';
 import ItemCard from './ItemCard';
+import {Skeleton} from "@nextui-org/react";
 
 register();
 
 type SliderProps = {
   items: any;
+  loading: boolean;
 };
 
-const Slider: FC<SliderProps> = ({ items }) => {
+const Slider: FC<SliderProps> = ({items, loading}) => {
   const swiperElRef = useRef<any>(null);
   const swiperPaginationRef = useRef<any>(null);
 
@@ -55,24 +57,31 @@ const Slider: FC<SliderProps> = ({ items }) => {
     swiperElRef.current.initialize();
   }, []);
   return (
-    <div className="w-full">
-      <div>
-        <swiper-container ref={swiperElRef} init={false}>
-          {items.map((item: any, i: number) => (
-            <swiper-slide key={i}>
-              <ItemCard item={item} />
-            </swiper-slide>
-          ))}
-        </swiper-container>
+      <div className="w-full">
+        <div>
+          <swiper-container ref={swiperElRef} init={false}>
+            {loading ?
+                  <div className="grid grid-cols-4 gap-4 md:gap-x-8 md:gap-y-6">
+                    <Skeleton className="aspect-square w-full rounded-2xl"/>
+                    <Skeleton className="aspect-square w-full rounded-2xl"/>
+                    <Skeleton className="aspect-square w-full rounded-2xl"/>
+                    <Skeleton className="aspect-square w-full rounded-2xl"/>
+                  </div>
+                  : items.map((item: any, i: number) => (
+                  <swiper-slide key={i}>
+                  <ItemCard item={item}/>
+                </swiper-slide>
+            ))
+            }
+          </swiper-container>
+        </div>
+        <div className="flex justify-center items-center mt-6">
+          <div
+              ref={swiperPaginationRef}
+              className="flex items-center space-x-3"
+          ></div>
+        </div>
       </div>
-
-      <div className="flex justify-center items-center mt-6">
-        <div
-          ref={swiperPaginationRef}
-          className="flex items-center space-x-3"
-        ></div>
-      </div>
-    </div>
   );
 };
 

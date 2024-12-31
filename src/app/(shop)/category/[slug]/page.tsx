@@ -10,7 +10,6 @@ import Footer from '@/components/Footer';
 import { MdOutlineFilterList } from 'react-icons/md';
 import useWindowSize from '@/hooks/useWindowSize';
 import Dialog from '@/components/global/Dialog';
-import useBodyScrollLock from '@/hooks/useBodyScrollLock';
 import SizeCard from '@/components/global/SizeCard';
 
 function ProductCategory() {
@@ -46,12 +45,6 @@ function ProductCategory() {
     setProducts(allProducts.slice(startIndex, endIndex));
   };
 
-  // lock the page scrolling while filter dialog is open
-  useBodyScrollLock(isOpen);
-
-  // lock the page scrolling while size dialog is open
-  useBodyScrollLock(isSize);
-
   return (
     <>
       <div
@@ -71,24 +64,19 @@ function ProductCategory() {
             />
           </div>
           <div className="w-full md:w-3/4 flex flex-col">
-            <div className="flex justify-between">
-              <div className="flex items-center space-x-3">
-                <h1 className="font-bold text-black text-xl capitalize">
+            <div className="flex justify-between mb-2">
+              <div className="flex justify-between items-center w-full">
+                <h1 className="font-bold text-black text-lg capitalize">
                   {slug}
                 </h1>
                 <button
-                  className="border-none outline-none bg-transparent block md:hidden"
-                  onClick={handleOpen}
+                    className="border-none outline-none bg-transparent flex md:hidden rounded-lg px-2 py-1 justify-center items-center  hover:bg-gray-200"
+                    onClick={handleOpen}
                 >
-                  <MdOutlineFilterList size={25} />
+                  <MdOutlineFilterList size={22}/>
+                  Filter
                 </button>
               </div>
-              <p className="text-sm text-gray-500 flex items-center space-x-2">
-                {' '}
-                <span className="hidden ss:block">Showing</span>{' '}
-                <strong>1-10 of 100 </strong>
-                <span className="hidden ss:block">Products</span>
-              </p>
             </div>
             <div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
@@ -110,10 +98,9 @@ function ProductCategory() {
         </div>
       </div>
       <Footer />
-
       <Dialog
         visible={isOpen && width < mdView}
-        className="xs:max-w-sm h-[76%] sm:h-[80%] bottom-0 xs:bottom-7 sm:bottom-10"
+        className="bottom-0 top-0 right-0 left-0"
       >
         <FilterSidebar
           toggle={() => setIsOpen(!isOpen)}
@@ -123,7 +110,7 @@ function ProductCategory() {
       </Dialog>
       <Dialog
         visible={isSize}
-        className="xs:max-w-[550px] sm:h-auto px-5 sm:px-0"
+        className="bottom-0 top-0 right-0 left-0"
       >
         <SizeCard close={() => setIsSize(false)} product={selectedProduct} />
       </Dialog>
