@@ -11,15 +11,18 @@ type PriceRangeSliderProps = {
 };
 
 const PriceRangeSlider:FC<PriceRangeSliderProps> = ({ min, max, step, value, onChange }) => {
-  const [minValue, setMinValue] = React.useState(value ? value.min : min);
-  const [maxValue, setMaxValue] = React.useState(value ? value.max : max);
+  const [minValue, setMinValue] = React.useState(min);
+  const [maxValue, setMaxValue] = React.useState(max);
 
   useEffect(() => {
-    if (value) {
+    if (value?.min > 0 && value?.max > 0) {
       setMinValue(value.min);
       setMaxValue(value.max);
+    }else{
+        setMinValue(min);
+        setMaxValue(max);
     }
-  }, [value]);
+  }, [value, min, max]);
 
   const handleMinChange = (e:any) => {
     e.preventDefault();

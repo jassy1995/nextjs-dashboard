@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import useDebounce from '@/hooks/useDebounce';
 import { FaSearch } from 'react-icons/fa';
+import {useGlobalStore} from "@/stores/global";
 
 type SearchInputProps = {
     placeholder?: string;
@@ -12,8 +13,12 @@ type SearchInputProps = {
 }
 
 const SearchInput: React.FC<SearchInputProps> = (props) => {
-    const { placeholder = 'Search...', onSearch, debounceDelay = 500, className } = props;
-    const [value, setValue] = useState('');
+    const { placeholder = 'Search...', onSearch, debounceDelay = 400, className } = props;
+
+    const setFilterParam = useGlobalStore((state:any) => state.setFilterParam);
+    const filterParams = useGlobalStore((state:any) => state.filterParams);
+
+    const [value, setValue] = useState(filterParams?.query);
     const debouncedValue = useDebounce(value, debounceDelay);
 
     useEffect(() => {
@@ -24,6 +29,13 @@ const SearchInput: React.FC<SearchInputProps> = (props) => {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
+        setFilterParam({query:''});
+    };
+
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter' && value.trim()) {
+            onSearch(value.trim());
+        }
     };
 
     return (
@@ -35,6 +47,7 @@ const SearchInput: React.FC<SearchInputProps> = (props) => {
                 placeholder={placeholder}
                 value={value}
                 onChange={handleChange}
+                onKeyDown={handleKeyPress}
             />
         </div>
     );

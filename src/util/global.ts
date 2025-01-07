@@ -1,5 +1,11 @@
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { toast } from 'react-toastify';
 type ToastType = 'success' | 'error' | 'info' | 'warning';
+
+export function cn(...inputs:any) {
+  return twMerge(clsx(inputs));
+}
 
 export const formatNaira = (amount: any) => {
   amount = parseFloat(amount);

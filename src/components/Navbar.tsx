@@ -11,11 +11,13 @@ import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/stores/cart';
 import { useUserStore } from '@/stores/user';
 import { signOut, useSession } from 'next-auth/react';
+import {useGlobalStore} from "@/stores/global";
 
 
 export default function Navbar() {
   const { data: session } = useSession();
   const { items } = useCartStore((state) => state);
+  const setFilterParam = useGlobalStore((state:any) => state.setFilterParam);
   const { loggedOut, isSignedIn, setRedirectPath } = useUserStore(
     (state) => state
   );
@@ -23,7 +25,14 @@ export default function Navbar() {
   const router = useRouter();
 
   const handleSearch = (value: string) => {
-    console.log('Search:', value);
+    if(value){
+      setFilterParam({query:value});
+      router.push(`/category/search=${value}`);
+    }
+    if(!value){
+      setFilterParam({query:''});
+      router.push(`/`);
+    }
   };
 
   const handleLoggedOut = () => {
@@ -46,7 +55,7 @@ export default function Navbar() {
         </h1>
         <SearchInput
           onSearch={handleSearch}
-          debounceDelay={600}
+          debounceDelay={400}
           className="rounded-full"
         />
         <ul className="flex items-center space-x-6">

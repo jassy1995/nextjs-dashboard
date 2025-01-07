@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, keepPreviousData, useMutation } from '@tanstack/react-query';
 import http from "@/util/http";
 
 export const useGetNewArrivals = ({limit}:any) => {
@@ -28,3 +28,24 @@ export const useGetProduct = ({productId} :any   ) => {
         },
     });
 };
+export const useGetFilterOptions = () => {
+    return useQuery({
+        queryKey: ['filterParams'],
+        queryFn: async () => {
+            const res = await http.get(`api/products/filter-params`,);
+            return res.data;
+        },
+    });
+};
+export const useSearchProducts = ({setCursor, pageSize, query='all', style='any',rating='any', price='any', page=1, order='any', category='any', brand='any', cursor=null}:any) => {
+    return useQuery({
+        queryKey: ['searchedProducts', page,query,rating,price,order,category,brand,style],
+        queryFn: async () => {
+            const url = `/api/products/search`;
+            const res = await http.post(url, {params:{query,rating,price,page,order,category,style,brand,pageSize,cursor}});
+            setCursor(res.data.cursor);
+            return res.data;
+        },
+        placeholderData:keepPreviousData,
+    });
+}

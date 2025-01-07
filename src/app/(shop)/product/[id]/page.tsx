@@ -17,7 +17,7 @@ import { useRouter } from 'next/navigation';
 import ImagePreview from '@/components/global/ImagePreview';
 import { useCartStore } from '@/stores/cart';
 import {useGetProduct} from "@/api/product";
-import ProductDetailSkeleton from "@/components/global/ProductDetailSkeleton";
+import ProductDetailSkeleton from "@/components/global/skelotons/ProductDetailSkeleton";
 import Dialog from "@/components/global/Dialog";
 import ReviewForm from "@/components/global/ReviewForm";
 import {useUserStore} from "@/stores/user";
@@ -237,6 +237,3 @@ export default function ProductDetail() {
     </>
   );
 }
-
-/*
-className="xs:max-w-[500px] sm:h-auto px-5 sm:px-0" */

@@ -9,7 +9,7 @@ export default function ItemGallery() {
                 <div className="grid grid-cols-1 ss:grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 xl:gap-8">
                         <div
                             className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-white shadow-lg md:h-80">
-                    <Link href='/category/casual'>
+                    <Link href='/category/all'>
                             <Image
                                 src="/gallery/casual.png"
                                 alt="Photo by Minh Pham"
@@ -24,7 +24,7 @@ export default function ItemGallery() {
                         </div>
                         <div
                             className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-white shadow-lg md:col-span-2 md:h-80">
-                    <Link href='/category/formal'>
+                    <Link href='/category/all'>
 
                             <Image
                                 src="/gallery/formal.png"
@@ -40,7 +40,7 @@ export default function ItemGallery() {
                         </div>
                         <div
                             className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-white shadow-lg md:col-span-2 md:h-80">
-                    <Link href='/category/party'>
+                    <Link href='/category/all'>
                             <Image
                                 src="/gallery/party.png"
                                 alt="Photo by Minh Pham"
@@ -55,7 +55,7 @@ export default function ItemGallery() {
                         </div>
                         <div
                             className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-white shadow-lg md:h-80">
-                            <Link href='/category/gym'>
+                            <Link href='/category/all'>
                                 <Image
                                     src="/gallery/gym.png"
                                     alt="Photo by Minh Pham"
